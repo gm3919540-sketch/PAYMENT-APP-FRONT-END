@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+* {
+  font-family: "Gilroy", sans-serif;
+ 
+}
+html,body{
+  overflow: hidden;
+}
