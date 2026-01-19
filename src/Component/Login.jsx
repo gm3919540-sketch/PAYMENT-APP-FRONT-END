@@ -13,25 +13,32 @@ export const Login = () => {
   const [password, setPassword] = useState("")
   const [err, setErr] = useState("")
 
-  const handleSubmit =  async(e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setErr("");
 
-    if (!email || !password) {
-      setErr("Email and Password required")
-      return
+  if (!email || !password) {
+    setErr("Email and Password required");
+    return;
+  }
+
+  try {
+    const token = await loginuser({ email, password });
+
+    // ✅ SAFETY CHECK
+    if (!token) {
+      setErr("Invalid credentials");
+      return;
     }
 
-   try{
-    const token = await loginuser({email,password})
-    login(token);
-    console.log(token);
-   }catch(err){
-    setErr(err);
-   }
+    login(token);                 // context login
+    navigate("/user/dashboard");  // ✅ ONLY ON SUCCESS
 
-    // after success
-    navigate("/user/dashboard")
+  } catch (err) {
+    setErr("Invalid email or password");
   }
+};
+
 
   return (
     <div className='bg-gradient-to-br from-[#0C0E1D] via-[#211F36] to-[#616083] h-screen w-screen flex justify-center items-center'>
