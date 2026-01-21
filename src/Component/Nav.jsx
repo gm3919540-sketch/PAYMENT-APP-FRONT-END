@@ -1,12 +1,17 @@
 import React, { useRef } from 'react'
 import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 export const Nav = ({ variant }) => {
   
   const navRef = useRef();
+  const navogate =useNavigate();
+
+  const removeToken =()=>{
+    localStorage.removeItem("token");
+  }
 
   useGSAP(() => {
     gsap.from(navRef.current, {
@@ -26,7 +31,7 @@ export const Nav = ({ variant }) => {
         <h1 className='font-semibold text-xl text-[#51FAAA]'>Pay Now</h1>
       </div>
 
-      {/* 🔥 conditional nav items */}
+     
       <div className="text-white flex gap-4 px-2">
         {variant === "home" && (
           <>
@@ -60,7 +65,7 @@ export const Nav = ({ variant }) => {
               </motion.div>
             </Link>
 
-            <Link to="/logout">
+            <Link to="/"  onClick={removeToken} >
               <motion.div whileHover={{ scale: 1.05 }} className='text-red-400'>
                 Logout
               </motion.div>

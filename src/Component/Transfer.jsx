@@ -15,6 +15,7 @@ export const Transfer = () => {
         setmess("");
         try{
            const r = await transferMoney({receiverWalletId,amount}, idempotencyKeyRef.current);
+         
            setmess("transfered succefully");
              if (r.data?.success === false) {
       throw new Error(response.data.message);
@@ -24,7 +25,7 @@ export const Transfer = () => {
         }catch(err){
             seterr(
         err?.response?.data?.message || 
-        "Transfer failed ❌"
+        "Transfer failed "
       );
         }
     }

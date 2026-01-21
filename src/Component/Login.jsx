@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {motion} from "framer-motion";
-import { loginuser } from '../Api/Userapi';
+import { loginuser,getRoleFromToken } from '../Api/Userapi';
 import { useAuth } from '../Context/AuthContext';
+import loginimg from"../Images/loginimg.png"
 
 export const Login = () => {
-    const {login} =useAuth();
+    const {login,roles} =useAuth();
 
   const navigate = useNavigate()
 
@@ -25,14 +26,19 @@ export const Login = () => {
   try {
     const token = await loginuser({ email, password });
 
-    // ✅ SAFETY CHECK
+    
     if (!token) {
       setErr("Invalid credentials");
       return;
     }
-
-    login(token);                 // context login
-    navigate("/user/dashboard");  // ✅ ONLY ON SUCCESS
+    const role = getRoleFromToken(token);
+    login(token);
+       
+    if(roles.includes("ROLE_ADMIN")){
+      navigate("/admin/dashboard");
+    }else{            
+    navigate("/user/dashboard");  
+    }
 
   } catch (err) {
     setErr("Invalid email or password");
@@ -47,6 +53,9 @@ export const Login = () => {
         onSubmit={handleSubmit}
         className='w-[60vh] h-[60vh] bg-[#211F36] rounded-xl p-4 flex flex-col items-center gap-5'
       >
+        <div className='w-[40px] h-[40px] objext-fit'>
+          <img className='h-[100%] w-[100%]' src={loginimg} alt="" />
+        </div>
         <h1 className='text-white text-[5vh] font-semibold'>Login</h1>
 
         {err && <p className='text-red-500'>{err}</p>}

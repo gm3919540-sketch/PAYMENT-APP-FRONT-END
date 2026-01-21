@@ -26,3 +26,36 @@ export const transferMoney = async(UserTransferRequest,idempotencyKey)=>{
 export const generateIdempotencyKey = () => {
   return crypto.randomUUID();
 };
+
+export const getAllTransactions = async (page = 0, size = 10) => {
+  const response = await api.get(
+    `/wallet/transactions?Pagenumber=${page}&PageSize=${size}`
+  );
+  return response.data;
+};
+
+export const getRoleFromToken = (token) => {
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  return payload.roles; 
+};
+
+export const fetchAllWallet = async (page = 0, size = 10) => {
+  const response = await api.get(
+    `/wallet/admin/wallets?page=${page}&size=${size}`
+  );
+  return response.data;
+};
+
+
+export const freeze = async (walletId)=>{
+            const response = await api.put(`/wallet/admin/wallet/${walletId}/freeze`);
+            return response.data;
+}
+
+export const unfreeze = async (walletId)=>{
+            const response = await api.put(`/wallet/admin/wallet/${walletId}/unfreeze`);
+            return response.data;
+}
+
+
+

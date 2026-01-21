@@ -8,6 +8,8 @@ import { Register } from './Component/Register'
 import { UserDashboard } from './Component/UserDashboard'
 import ProtectedRoute from './utils/ProtectedRoute'
 import { Transfer } from './Component/Transfer'
+import { Transactions } from './Component/transactions'
+import { Admindashboard } from './Component/Admindashboard'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,8 +28,23 @@ function App() {
                    }
                        />
       <Route path='/register' element={<Register/>}/>
-      <Route path='/transfer' element={<Transfer/>}></Route>
+      <Route path='/transfer' element={
+        <ProtectedRoute>
+        <Transfer/>
+        </ProtectedRoute>
+         }></Route>
+      <Route path='/transactions' element={
+                     <ProtectedRoute>
+                    <Transactions/>
+                    </ProtectedRoute>
+       } />
 
+       <Route path='/admin/dashboard' element ={
+            <ProtectedRoute>
+              <Admindashboard />
+            </ProtectedRoute>
+       } />
+           
     </Routes>
     </>
   )

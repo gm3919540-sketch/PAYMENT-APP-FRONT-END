@@ -5,6 +5,7 @@ import {motion} from "framer-motion";
 import { loginuser, registerUser } from '../Api/Userapi';
 import { useAuth } from '../Context/AuthContext';
 import api from '../Api/axios';
+import Resiterimg from "../Images/Registerimg.png"
 
 export const Register = () => {
      const [name, setname] = useState("");
@@ -39,8 +40,11 @@ export const Register = () => {
       
       <form
         onSubmit={handleSubmit}
-        className='w-[60vh] h-[60vh] bg-[#211F36] rounded-xl p-4 flex flex-col items-center gap-5'
+        className='w-[60vh] h-[60vh] bg-[#211F36] rounded-xl p-4 flex flex-col items-center gap-3'
       >
+        <div className='w-[40px] h-[40px] objext-fit'>
+                  <img className='h-[100%] w-[100%]' src={Resiterimg} alt="" />
+                </div>
         <h1 className='text-white text-[5vh] font-semibold'>Register</h1>
 
         {err && <p className='text-red-500'>{err}</p>}
