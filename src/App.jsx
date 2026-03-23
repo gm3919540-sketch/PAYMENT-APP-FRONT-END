@@ -8,7 +8,7 @@ import { Register } from './Component/Register'
 import { UserDashboard } from './Component/UserDashboard'
 import ProtectedRoute from './utils/ProtectedRoute'
 import { Transfer } from './Component/Transfer'
-import { Transactions } from './Component/transactions'
+import { Transactions } from './Component/Transactions'
 import { Admindashboard } from './Component/Admindashboard'
 
 function App() {
